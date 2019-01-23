@@ -12,6 +12,7 @@ env:
     - GYP_CHROMIUM_NO_ACTION=1
 
 before_install:
+  - sudo add-apt-repository -y ppa:git-core/ppa 
   - sudo apt-get update
   - sudo apt-get install -t xenial-backports git-svn
   - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $TRAVIS_BUILD_DIR/depot_tools
