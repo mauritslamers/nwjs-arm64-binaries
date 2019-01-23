@@ -15,8 +15,9 @@ before_install:
   - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $TRAVIS_BUILD_DIR/depot_tools
   - cd $TRAVIS_BUILD_DIR/nwjs
   - cp $TRAVIS_BUILD_DIR/gclient.conf $TRAVIS_BUILD_DIR/nwjs/.gclient
-  - cd $NWJS/src
-  - sudo $NWJS/src/build/install-build-deps.sh --arm --no-nacl --no-syms 2>&1
+  - cd $NWJS/src/build/
+  - ./install-build-deps.sh --help
+  - sudo ./install-build-deps.sh --arm --no-nacl --no-syms 2>&1
   - mkdir -p $NWJS/src/content
   - cd $NWJS/src/content
   - git clone https://github.com/nwjs/nw.js ./nw
