@@ -1,6 +1,5 @@
 language: cpp
 compiler: clang
-sudo: false
 dist: xenial
 
 env:
@@ -16,6 +15,8 @@ before_install:
   - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $TRAVIS_BUILD_DIR/depot_tools
   - cd $TRAVIS_BUILD_DIR/nwjs
   - cp $TRAVIS_BUILD_DIR/gclient.conf $TRAVIS_BUILD_DIR/nwjs/.gclient
+  - cd $NWJS/src
+  - sudo $NWJS/src/build/install-build-deps.sh --arm --no-nacl --no-syms
   - mkdir -p $NWJS/src/content
   - cd $NWJS/src/content
   - git clone https://github.com/nwjs/nw.js ./nw
@@ -33,8 +34,6 @@ before_install:
   - cd v8
   - git fetch --tags --prune
   - git checkout nw28
-  - cd $NWJS/src
-  - sudo $NWJS/src/build/install-build-deps.sh --arm --no-nacl --no-syms
   - cd $NWJS/src/content/nw/
   - curl -s https://github.com/jtg-gg/node-webkit/commit/76770752e362b83b127ac4bf3aacc0c9a81bd590.patch | git am
   - curl -s https://github.com/jtg-gg/node-webkit/commit/a59ff4c4f7ede3b47411719e41c59332b25b7259.patch | git am
