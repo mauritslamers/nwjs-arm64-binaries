@@ -1,0 +1,86 @@
+# Copyright (c) 2012 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+[GENERAL]
+#
+# Chrome Application dir entries, sorted alphabetically.
+#
+nw.exe: %(ChromeDir)s\
+#
+# Chrome version dir assembly manifest.
+# The name of this file must match the name of the version dir, so we cannot
+# hard-code it.
+# // TODO(caitkp): Find a way to do this without wildcards.
+#
+*.*.*.*.manifest: %(ChromeDir)s\
+#
+# Chrome version dir entries, sorted alphabetically.
+#
+nw.dll: %(ChromeDir)s\
+nw_100_percent.pak: %(ChromeDir)s\
+nw_child.dll: %(ChromeDir)s\
+nw_elf.dll: %(ChromeDir)s\
+nw_watcher.dll: %(ChromeDir)s\
+d3dcompiler_47.dll: %(ChromeDir)s\
+eventlog_provider.dll: %(ChromeDir)s\
+ffmpeg.dll: %(VersionDir)s\
+icudt.dll: %(ChromeDir)s\
+icudtl.dat: %(ChromeDir)s\
+libEGL.dll: %(ChromeDir)s\
+libGLESv2.dll: %(ChromeDir)s\
+nacl64.exe: %(ChromeDir)s\
+nacl_irt_x86_32.nexe: %(ChromeDir)s\
+nacl_irt_x86_64.nexe: %(ChromeDir)s\
+natives_blob.bin: %(ChromeDir)s\
+resources.pak: %(ChromeDir)s\
+snapshot_blob.bin: %(ChromeDir)s\
+syzyasan_rtl.dll: %(ChromeDir)s\
+node.dll: %(ChromeDir)s\
+v8_context_snapshot.bin: %(ChromeDir)s\
+#
+# Sub directories living in the version dir
+#
+default_apps\*.crx: %(ChromeDir)s\default_apps\
+default_apps\external_extensions.json: %(ChromeDir)s\default_apps\
+Extensions\*.*: %(ChromeDir)s\Extensions\
+locales\*.dll: %(ChromeDir)s\Locales
+locales\*.pak: %(ChromeDir)s\Locales
+
+#
+# VisualElements sub-dir.
+#
+# All or none of the following files need to be present as the creation of
+# VisualElementsManifest.xml is based on the existence of
+# %(VersionDir)\VisualElements.
+Logo.png: %(VersionDir)s\VisualElements\
+LogoBeta.png: %(VersionDir)s\VisualElements\
+LogoCanary.png: %(VersionDir)s\VisualElements\
+LogoDev.png: %(VersionDir)s\VisualElements\
+SmallLogo.png: %(VersionDir)s\VisualElements\
+SmallLogoBeta.png: %(VersionDir)s\VisualElements\
+SmallLogoCanary.png: %(VersionDir)s\VisualElements\
+SmallLogoDev.png: %(VersionDir)s\VisualElements\
+
+#
+# SwiftShader sub-dir
+#
+swiftshader\libEGL.dll: %(VersionDir)s\swiftshader\
+swiftshader\libGLESv2.dll: %(VersionDir)s\swiftshader\
+
+[HIDPI]
+nw_200_percent.pak: %(ChromeDir)s\
+
+[TOUCH]
+
+[GOOGLE_CHROME]
+#
+# Widevine CDM sub-dir
+#
+WidevineCdm\manifest.json: %(ChromeDir)s\WidevineCdm\
+WidevineCdm\_platform_specific\win_x86\widevinecdm.dll: %(ChromeDir)s\WidevineCdm\_platform_specific\win_x86\
+WidevineCdm\_platform_specific\win_x86\widevinecdm.dll.sig: %(ChromeDir)s\WidevineCdm\_platform_specific\win_x86\
+WidevineCdm\_platform_specific\win_x86\widevinecdmadapter.dll: %(ChromeDir)s\WidevineCdm\_platform_specific\win_x86\
+WidevineCdm\_platform_specific\win_x64\widevinecdm.dll: %(ChromeDir)s\WidevineCdm\_platform_specific\win_x64\
+WidevineCdm\_platform_specific\win_x64\widevinecdm.dll.sig: %(ChromeDir)s\WidevineCdm\_platform_specific\win_x64\
+WidevineCdm\_platform_specific\win_x64\widevinecdmadapter.dll: %(ChromeDir)s\WidevineCdm\_platform_specific\win_x64\
