@@ -1,0 +1,64 @@
+language: c++
+sudo: false
+dist: xenial
+
+env:
+  - PATH=$PATH:/depot_tools
+  - NWJS=/nwjs
+  - GYP_CROSSCOMPILE="1"
+  - GYP_DEFINES="is_debug=false is_component_ffmpeg=true target_arch=arm64 target_cpu=\"arm64\" arm_float_abi=hard"
+  - GN_ARGS="nwjs_sdk=false enable_nacl=false ffmpeg_branding=\"Chrome\""
+  - GYP_CHROMIUM_NO_ACTION=1
+
+before_install:
+  - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git /depot_tools
+  - mkdir -p /nwjs
+  - cd nwjs
+  - gclient config --name=src https://github.com/nwjs/chromium.src.git@origin/nw28
+  - cp $TRAVIS_BUILD_DIR/gclient.conf /nwjs/.gclient
+  - mkdir -p $NWJS/src/content
+  - cd $NWJS/src/content
+  - git clone https://github.com/nwjs/nw.js ./nw
+  - cd nw
+  - git fetch --tags --prune
+  - git checkout nw28
+  - mkdir -p $NWJS/src/third_party
+  - cd $NWJS/src/third_party
+  - git clone https://github.com/nwjs/node ./node-nw
+  - cd node-nw
+  - git fetch --tags --prune
+  - git checkout nw28
+  - cd $NWJS/src/
+  - git clone https://github.com/nwjs/v8 ./v8
+  - cd v8
+  - git fetch --tags --prune
+  - git checkout nw28
+  - cd $NWJS/src
+  - gclient sync --reset --with_branch_heads --nohooks
+  - sudo s$NWJS/src/build/install-build-deps.sh --arm64
+  - curl -s https://github.com/jtg-gg/chromium.src/commit/65f2215706692e438ca3570be640ed724ae37eaf.patch | git am
+  - curl -s https://github.com/jtg-gg/chromium.src/commit/2a3ca533a4dd2552889bd18cd4343809f13876c4.patch | git am
+  - curl -s https://github.com/jtg-gg/chromium.src/commit/8c13d9d6de27201ed71529f77f38b39e0aafc184.patch | git am
+  - curl -s https://github.com/jtg-gg/chromium.src/commit/5e4bd4d9d03f81623074334bf030d13fce968c1b.patch | git am
+  - curl -s https://github.com/jtg-gg/chromium.src/commit/58c7eb31c1e9390325da21ccc7f718f1b1b019d2.patch | git am
+  - curl -s https://github.com/jtg-gg/chromium.src/commit/cdc6ede7e5e4979ebbcc58492c7b576a07350152.patch | git am
+  - cd $NWJS/src/content/nw/
+  - curl -s https://github.com/jtg-gg/node-webkit/commit/76770752e362b83b127ac4bf3aacc0c9a81bd590.patch | git am
+  - curl -s https://github.com/jtg-gg/node-webkit/commit/a59ff4c4f7ede3b47411719e41c59332b25b7259.patch | git am
+  - curl -s https://github.com/jtg-gg/node-webkit/commit/11dcb9c775e43c78eb8136148e23ffe3b15d737e.patch | git am
+  - curl -s https://github.com/jtg-gg/node-webkit/commit/c87b16766cda3f0af1ffa76b2b24390d77a005e0.patch | git am
+  - curl -s https://github.com/jtg-gg/node-webkit/commit/d480e6dcf6e49fd64200fd347d406554e76ef72e.patch | git am
+  - curl -s https://github.com/jtg-gg/node-webkit/commit/42e15aeaf9b47447023d866fd94c82774327c49b.patch | git am
+  - cd $NWJS/src
+  - gclient runhooks
+  - gn gen out_gn_arm/nw --args="$GN_ARGS"
+  - export GYP_CHROMIUM_NO_ACTION=0
+  - python build/gyp_chromium -Goutput_dir=out_gn_arm -I third_party/node-nw/build/common.gypi third_party/node-nw/node.gyp
+
+script:
+  - ninja -C out_gn_arm/nw nwjs
+  - ninja -C out_gn_arm/nw v8_libplatform
+  - ninja -C out_gn_arm/Release node
+  - ninja -C out_gn_arm/nw copy_node
+  - ninja -C out_gn_arm/nw dump
+  - ninja -C out_gn_arm/nw dist
