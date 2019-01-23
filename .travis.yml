@@ -14,9 +14,7 @@ env:
 
 before_install:
   - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $TRAVIS_BUILD_DIR/depot_tools
-  - mkdir -p $TRAVIS_BUILD_DIR/nwjs
   - cd $TRAVIS_BUILD_DIR/nwjs
-  - gclient config --name=src https://github.com/nwjs/chromium.src.git@origin/nw28
   - cp $TRAVIS_BUILD_DIR/gclient.conf $TRAVIS_BUILD_DIR/nwjs/.gclient
   - mkdir -p $NWJS/src/content
   - cd $NWJS/src/content
@@ -36,14 +34,7 @@ before_install:
   - git fetch --tags --prune
   - git checkout nw28
   - cd $NWJS/src
-  - gclient sync --reset --with_branch_heads --nohooks --no-history
   - sudo $NWJS/src/build/install-build-deps.sh --arm64
-  - curl -s https://github.com/jtg-gg/chromium.src/commit/65f2215706692e438ca3570be640ed724ae37eaf.patch | git am
-  - curl -s https://github.com/jtg-gg/chromium.src/commit/2a3ca533a4dd2552889bd18cd4343809f13876c4.patch | git am
-  - curl -s https://github.com/jtg-gg/chromium.src/commit/8c13d9d6de27201ed71529f77f38b39e0aafc184.patch | git am
-  - curl -s https://github.com/jtg-gg/chromium.src/commit/5e4bd4d9d03f81623074334bf030d13fce968c1b.patch | git am
-  - curl -s https://github.com/jtg-gg/chromium.src/commit/58c7eb31c1e9390325da21ccc7f718f1b1b019d2.patch | git am
-  - curl -s https://github.com/jtg-gg/chromium.src/commit/cdc6ede7e5e4979ebbcc58492c7b576a07350152.patch | git am
   - cd $NWJS/src/content/nw/
   - curl -s https://github.com/jtg-gg/node-webkit/commit/76770752e362b83b127ac4bf3aacc0c9a81bd590.patch | git am
   - curl -s https://github.com/jtg-gg/node-webkit/commit/a59ff4c4f7ede3b47411719e41c59332b25b7259.patch | git am
