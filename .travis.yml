@@ -1,4 +1,5 @@
-language: c++
+language: cpp
+compiler: clang
 sudo: false
 dist: xenial
 
