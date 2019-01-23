@@ -16,8 +16,7 @@ before_install:
   - cd $TRAVIS_BUILD_DIR/nwjs
   - cp $TRAVIS_BUILD_DIR/gclient.conf $TRAVIS_BUILD_DIR/nwjs/.gclient
   - cd $NWJS/src/build/
-  - ./install-build-deps.sh --help
-  - sudo ./install-build-deps.sh --arm --no-nacl --no-syms 2>&1
+  - sudo bash -v ./install-build-deps.sh --arm --no-nacl --no-syms 2>&1
   - mkdir -p $NWJS/src/content
   - cd $NWJS/src/content
   - git clone https://github.com/nwjs/nw.js ./nw
