@@ -3,12 +3,13 @@ sudo: false
 dist: xenial
 
 env:
-  - PATH=$PATH:/depot_tools
-  - NWJS=/nwjs
-  - GYP_CROSSCOMPILE="1"
-  - GYP_DEFINES="is_debug=false is_component_ffmpeg=true target_arch=arm64 target_cpu=\"arm64\" arm_float_abi=hard"
-  - GN_ARGS="nwjs_sdk=false enable_nacl=false ffmpeg_branding=\"Chrome\""
-  - GYP_CHROMIUM_NO_ACTION=1
+  global:
+    - PATH=$PATH:/depot_tools
+    - NWJS=/nwjs
+    - GYP_CROSSCOMPILE="1"
+    - GYP_DEFINES="is_debug=false is_component_ffmpeg=true target_arch=arm64 target_cpu=\"arm64\" arm_float_abi=hard"
+    - GN_ARGS="nwjs_sdk=false enable_nacl=false ffmpeg_branding=\"Chrome\""
+    - GYP_CHROMIUM_NO_ACTION=1
 
 before_install:
   - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git /depot_tools
