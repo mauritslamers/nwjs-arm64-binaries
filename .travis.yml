@@ -4,19 +4,19 @@ dist: xenial
 
 env:
   global:
-    - PATH=$PATH:/depot_tools
-    - NWJS=/nwjs
+    - PATH=$PATH:$TRAVIS_BUILD_DIR/depot_tools
+    - NWJS=$TRAVIS_BUILD_DIR/nwjs
     - GYP_CROSSCOMPILE="1"
     - GYP_DEFINES="is_debug=false is_component_ffmpeg=true target_arch=arm64 target_cpu=\"arm64\" arm_float_abi=hard"
     - GN_ARGS="nwjs_sdk=false enable_nacl=false ffmpeg_branding=\"Chrome\""
     - GYP_CHROMIUM_NO_ACTION=1
 
 before_install:
-  - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git /depot_tools
-  - mkdir -p /nwjs
-  - cd nwjs
+  - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $TRAVIS_BUILD_DIR/depot_tools
+  - mkdir -p $TRAVIS_BUILD_DIR/nwjs
+  - cd $TRAVIS_BUILD_DIR/nwjs
   - gclient config --name=src https://github.com/nwjs/chromium.src.git@origin/nw28
-  - cp $TRAVIS_BUILD_DIR/gclient.conf /nwjs/.gclient
+  - cp $TRAVIS_BUILD_DIR/gclient.conf $TRAVIS_BUILD_DIR/nwjs/.gclient
   - mkdir -p $NWJS/src/content
   - cd $NWJS/src/content
   - git clone https://github.com/nwjs/nw.js ./nw
@@ -36,7 +36,7 @@ before_install:
   - git checkout nw28
   - cd $NWJS/src
   - gclient sync --reset --with_branch_heads --nohooks
-  - sudo s$NWJS/src/build/install-build-deps.sh --arm64
+  - sudo $NWJS/src/build/install-build-deps.sh --arm64
   - curl -s https://github.com/jtg-gg/chromium.src/commit/65f2215706692e438ca3570be640ed724ae37eaf.patch | git am
   - curl -s https://github.com/jtg-gg/chromium.src/commit/2a3ca533a4dd2552889bd18cd4343809f13876c4.patch | git am
   - curl -s https://github.com/jtg-gg/chromium.src/commit/8c13d9d6de27201ed71529f77f38b39e0aafc184.patch | git am
@@ -57,6 +57,7 @@ before_install:
   - python build/gyp_chromium -Goutput_dir=out_gn_arm -I third_party/node-nw/build/common.gypi third_party/node-nw/node.gyp
 
 script:
+  - cd $TRAVIS_BUILD_DIR/nwjs/src
   - ninja -C out_gn_arm/nw nwjs
   - ninja -C out_gn_arm/nw v8_libplatform
   - ninja -C out_gn_arm/Release node
@@ -73,5 +74,5 @@ deploy:
   file:
   - $NWJS/src/out_gn_arm/nw/dist
   on:
-    repo: mauritslamers/nwjs-arm64-binariess
+    repo: mauritslamers/nwjs-arm64-binaries
     tags: true
