@@ -34,7 +34,7 @@ before_install:
   - git fetch --tags --prune
   - git checkout nw28
   - cd $NWJS/src
-  - sudo $NWJS/src/build/install-build-deps.sh --arm
+  - sudo $NWJS/src/build/install-build-deps.sh --arm --no-nacl --no-syms
   - cd $NWJS/src/content/nw/
   - curl -s https://github.com/jtg-gg/node-webkit/commit/76770752e362b83b127ac4bf3aacc0c9a81bd590.patch | git am
   - curl -s https://github.com/jtg-gg/node-webkit/commit/a59ff4c4f7ede3b47411719e41c59332b25b7259.patch | git am
