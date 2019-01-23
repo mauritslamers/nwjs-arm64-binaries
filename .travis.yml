@@ -62,3 +62,15 @@ script:
   - ninja -C out_gn_arm/nw copy_node
   - ninja -C out_gn_arm/nw dump
   - ninja -C out_gn_arm/nw dist
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  branch: master
+  api_key:
+    secure: CdH24Tl8Mx0ENn4JM7UEYjoy1ixgwRXdrpn25wvlD6WXJyyYjgArZ7dZjOJegOhtNZV5IiUWx1h7og3OKXewiR5QiXl8bF0vBdBlaJ1Gwl3O313nqV2bGw6oeee59Ef3AFNSw/mNsKf+2Xt7aFiYUd6/b05JGMnChCZsFZmZAoQMplWfvRKzlDY943orJrO+Q+W9AIR29GkOAxItZbNkUJt06vnVdmAmWJpjwrcXtkF39zQyVAnJX9MGwU2XEGcgbMNiWgVhRK90D6JbXm6TahnsHir9rxVaYt3TysqhfThhPN1p0+TjTcrXv9wqcbSyHiXROjGWAiHCrSjOstVZXidONWOhI/a6/+6CeuP1a3aPLnTK08rrfVXqYdWiS3giWSdub/6IWvErgJgLrjlgKJNq/M4yZG8O+havMp267xLrWFtlfwzoicu2DyDp+uVZJSiVKSba5DrPVDMRroGnA0ILe76tLfuUAznKOrskOKvEQZ5f6RGRtcLuyUlGg5FuhxSed7pnlPepc5/eaAzDQ1vqiWGXMYU8Da9vRp9aUi0fTXfvEG5eQKXR/SewlYbBALnZW+w2daXZ2IbqBOZDulIrhNd8r6nLQ7eHvvK5xqRp5WIb6qSjOk1kFC6jA1hGMLn+rQKraohh5V5zBTHDJ76cXU+ELUJQw0S+95W7CRQ=
+  file:
+  - $NWJS/src/out_gn_arm/nw/dist
+  on:
+    repo: mauritslamers/nwjs-arm64-binariess
+    tags: true
