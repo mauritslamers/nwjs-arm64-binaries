@@ -13,6 +13,7 @@ env:
 
 before_install:
   - sudo apt-get update
+  - sudo apt-get install git-svn
   - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $TRAVIS_BUILD_DIR/depot_tools
   - cd $TRAVIS_BUILD_DIR/nwjs
   - cp $TRAVIS_BUILD_DIR/gclient.conf $TRAVIS_BUILD_DIR/nwjs/.gclient
