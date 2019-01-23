@@ -35,7 +35,7 @@ before_install:
   - git fetch --tags --prune
   - git checkout nw28
   - cd $NWJS/src
-  - gclient sync --reset --with_branch_heads --nohooks
+  - gclient sync --reset --with_branch_heads --nohooks --no-history
   - sudo $NWJS/src/build/install-build-deps.sh --arm64
   - curl -s https://github.com/jtg-gg/chromium.src/commit/65f2215706692e438ca3570be640ed724ae37eaf.patch | git am
   - curl -s https://github.com/jtg-gg/chromium.src/commit/2a3ca533a4dd2552889bd18cd4343809f13876c4.patch | git am
