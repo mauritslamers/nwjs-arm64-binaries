@@ -44,7 +44,7 @@ before_install:
   - curl -s https://github.com/jtg-gg/node-webkit/commit/c87b16766cda3f0af1ffa76b2b24390d77a005e0.patch | git am
   - curl -s https://github.com/jtg-gg/node-webkit/commit/d480e6dcf6e49fd64200fd347d406554e76ef72e.patch | git am
   - curl -s https://github.com/jtg-gg/node-webkit/commit/42e15aeaf9b47447023d866fd94c82774327c49b.patch | git am
-  - cd $NWJS/src
+  - cd $NWJS
   - gclient runhooks
   - gn gen out_gn_arm/nw --args="$GN_ARGS"
   - export GYP_CHROMIUM_NO_ACTION=0
